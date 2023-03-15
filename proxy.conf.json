@@ -1,0 +1,6 @@
+{
+    "/api": {
+      "target": "https://graphql.api.apollographql.com/api/graphql",
+      "secure": false
+    }
+  }
