@@ -1,9 +1,9 @@
+import { FilmsService } from './films.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PaginationInstance } from 'ng2-pagination';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
-import {  GET_TODOS } from '../graphql/graphql.queries';
 
 @Component({
     selector: 'app-Films',
@@ -1899,7 +1899,7 @@ export class FilmsComponent implements OnInit {
             }
         ]
         ;
-    constructor(private router: Router, private apollo: Apollo) { }
+    constructor(private router: Router, private apollo: Apollo, private filmsService: FilmsService) { }
 
     public characters!: any[];
     public Vehu!: any[];
@@ -1940,13 +1940,8 @@ export class FilmsComponent implements OnInit {
         this.isModalOpen = false;
     }
     ngOnInit(): void {
-    this.apollo.watchQuery({
-      query: GET_TODOS
-    }).valueChanges.subscribe(({ data, error }: any) => {
-      this.liste = data.todos;
-      console.log(this.liste)
-      this.error = error;
-  }
-  );
+
+        this.filmsService.filmsList();
+
     }
 }

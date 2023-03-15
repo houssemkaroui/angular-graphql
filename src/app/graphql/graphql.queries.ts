@@ -1,6 +1,6 @@
 import {gql} from 'apollo-angular'
 
-const GET_TODOS = gql`
+const FILMS_LIST = gql`
 query allFilms {
 
   allFilms {
@@ -47,7 +47,4 @@ query allFilms {
 
 }`
 
-
-
-
-export {GET_TODOS}
+export {FILMS_LIST}
