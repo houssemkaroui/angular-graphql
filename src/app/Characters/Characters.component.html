@@ -1,0 +1,21 @@
+<table class="table-auto border-collapse">
+    <thead>
+      <tr>
+        <th class="px-4 py-2">name</th>
+        <th class="px-4 py-2">gender</th>
+        <th class="px-4 py-2">homeworld</th>
+        <th class="px-4 py-2">eyeColor</th>
+        <th class="px-4 py-2">skinColor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of characters">
+        <td class="border px-4 py-2">{{item.name}}</td>
+        <td class="border px-4 py-2">{{item.gender}}</td>
+        <td class="border px-4 py-2">{{item.homeworld?.name}}</td>
+        <td class="border px-4 py-2">{{item.eyeColor}}</td>
+        <td class="border px-4 py-2">{{item.skinColor}}</td>
+      </tr>
+
+    </tbody>
+  </table>
