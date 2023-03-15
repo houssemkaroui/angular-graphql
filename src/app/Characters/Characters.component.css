@@ -1,0 +1,23 @@
+.page_title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: x-large;
+    letter-spacing: 1px;
+    margin-top: 20px;
+  }
+.example-container{
+    margin: 20px;
+}
+.carac_title{
+    display: flex;
+    align-items: flex-end;
+    width: 97%;
+    margin-left: 20px;
+}
+.carac_title_subtitle{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

@@ -11,17 +11,10 @@ query allFilms {
 
       director
 
-      created
-
       title
 
       releaseDate
-
-      edited
-
-      episodeID
-
-      openingCrawl
+      producers
 
       vehicleConnection {
 
@@ -36,15 +29,33 @@ query allFilms {
         vehicles {
 
           model
+          vehicleClass
+          name
+          crew 
 
         }
 
       }
+      characterConnection {
+        characters {
+          name
+          gender
+          eyeColor
+          homeworld {
+            name
+          }
+          skinColor
+        }
+      }
+      
+    
 
     }
 
   }
 
-}`
+}
+
+`
 
 export {FILMS_LIST}

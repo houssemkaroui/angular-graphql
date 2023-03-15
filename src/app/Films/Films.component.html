@@ -1,86 +1,67 @@
 
-<table class="table-auto">
-  <thead>
-    <tr>
-      <th class="px-4 py-2">Title</th>
-      <th class="px-4 py-2">Producers</th>
-      <th class="px-4 py-2">Director</th>
-      <th class="px-4 py-2">ReleaseDate</th>
-      <th class="px-4 py-2">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of data.slice((currentPage-1)*pageSize, currentPage*pageSize)">
-      <td class="border px-4 py-2">{{ item.title }}</td>
-      <td class="border px-4 py-2">{{ item.producers }}</td>
-      <td class="border px-4 py-2">{{ item.director }}</td>
-      <td class="border px-4 py-2">{{ item.releaseDate }}</td>
-      <td class="border px-4 py-2">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="openModal(item)">Véhicule</button>
-      </td>
-      <td class="border px-4 py-2">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" (click)="openModalChracters(item.characterConnection)">Characters</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
 
-<div class="fixed z-10 inset-0 overflow-y-auto" *ngIf="isModalOpen">
-  <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-    <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-      <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-    </div>
-    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-      <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-        <div class="sm:flex sm:items-start">
-          <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
-            <!-- Modal icon -->
-          </div>
-          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-            <h3 class="text-lg leading-6 font-medium text-gray-900">
-            Vehicles-List   
-            </h3>
-            <div class="mt-2">
-              <table class="table-auto border-collapse">
-                <thead>
-                  <tr>
-                    <th class="px-4 py-2">Crew</th>
 
-                    <th class="px-4 py-2">Model</th>
-                    <th class="px-4 py-2">Name</th>
-                    <th class="px-4 py-2">VehicleClass</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of Vehu">
-                    <td class="border px-4 py-2">{{item.crew}}</td>
-                    <td class="border px-4 py-2">{{item.model}}</td>
-                    <td class="border px-4 py-2">{{item.name}}</td>
-                    <td class="border px-4 py-2">{{item.vehicleClass}}</td>
-                  </tr>
-          
-                </tbody>
-              </table>
-
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-        <!-- <button type="button" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm">
-         addd
-        </button> -->
-        <button class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" (click)="closeModal()">
-         Close
-        </button>
-      </div>
-    </div>
+<div class="page_title">
+  <h2>List des Films</h2>
   </div>
+  
+<div class="example-container mat-elevation-z8">
+  <mat-table #table [dataSource]="listeFilms">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Title</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.title}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="director">
+      <mat-header-cell *matHeaderCellDef> Director </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.director}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="releaseDate">
+      <mat-header-cell *matHeaderCellDef> ReleaseDate </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.releaseDate}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="producers">
+      <mat-header-cell *matHeaderCellDef> Producers </mat-header-cell>
+      <mat-cell *matCellDef="let element" style="display:block">
+        <ul class="Producers_list" *ngFor="let data of element.producers">
+          <li>{{data}}</li>
+
+        </ul>
+
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="Options">
+      <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+      <mat-cell *matCellDef="let element; let i = index;">
+        <button mat-icon-button (click)="openDialog(i,element)">
+          <mat-icon>commute</mat-icon>
+        </button>
+        <button 
+        matTooltip="Caractèréstique"
+        mat-icon-button (click)="CharacterList(i,element)"
+        
+        aria-label="Button that displays a tooltip when focused or hovered over"
+        >
+          <mat-icon>visibility</mat-icon>
+
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
 </div>
-
-
-
 
 
 

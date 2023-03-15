@@ -1,7 +1,8 @@
-import { Component, OnInit,Input } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import {Character} from './characters'
 @Component({
   selector: 'app-Characters',
   templateUrl: './Characters.component.html',
@@ -9,15 +10,19 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CharactersComponent implements OnInit {
 
-  characters!: any[];
   dataString:any
 
   constructor(private route: ActivatedRoute) { }
+  @ViewChild(MatPaginator)paginator!: MatPaginator;
+  displayedColumns = ['name', 'gender', 'homeworld', 'eyeColor','skinColor'];
+  characters!: MatTableDataSource<Character>;
 
   ngOnInit(): void {
-     this.dataString = this.route.snapshot.queryParamMap.get('data');
-    this.characters = JSON.parse(this.dataString);
-    console.log(this.characters); // { name: 'John', age: 30, gender: 'male' }
+    this.dataString = this.route.snapshot.queryParamMap.get('data');
+    this.characters = new MatTableDataSource<Character>(JSON.parse(this.dataString))
+    console.log(this.characters)
+    setTimeout(() => this.characters.paginator = this.paginator);
+
 
   }
 }

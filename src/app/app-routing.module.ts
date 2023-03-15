@@ -4,11 +4,9 @@
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
 import {FilmsComponent} from './Films/Films.component'
 
 import { CharactersComponent } from './Characters/Characters.component';
-;
 
 const routes: Routes = [
   { path: '', component: FilmsComponent, },

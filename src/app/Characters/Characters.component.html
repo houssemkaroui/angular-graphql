@@ -1,21 +1,53 @@
-<table class="table-auto border-collapse">
-    <thead>
-      <tr>
-        <th class="px-4 py-2">name</th>
-        <th class="px-4 py-2">gender</th>
-        <th class="px-4 py-2">homeworld</th>
-        <th class="px-4 py-2">eyeColor</th>
-        <th class="px-4 py-2">skinColor</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of characters">
-        <td class="border px-4 py-2">{{item.name}}</td>
-        <td class="border px-4 py-2">{{item.gender}}</td>
-        <td class="border px-4 py-2">{{item.homeworld?.name}}</td>
-        <td class="border px-4 py-2">{{item.eyeColor}}</td>
-        <td class="border px-4 py-2">{{item.skinColor}}</td>
-      </tr>
 
-    </tbody>
-  </table>
+<div class="carac_title" style="display: flex;">
+  <button  mat-fab 
+  color="primary"
+  class="carac_title_btn col-lg-4" [routerLink]="['/']">
+    <mat-icon>keyboard_backspace</mat-icon>
+ 
+  </button>
+  <h2 class="carac_title_subtitle col-lg-8">Liste des caractéristiques</h2>
+  </div>
+  
+<div class="example-container mat-elevation-z8">
+  <mat-table #table [dataSource]="characters">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="gender">
+      <mat-header-cell *matHeaderCellDef>Gender</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.gender === 'male' ? 'M' : (element.gender === 'female' ? 'F' : 'O') }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="homeworld">
+      <mat-header-cell *matHeaderCellDef> Home_world </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.homeworld.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="eyeColor">
+      <mat-header-cell *matHeaderCellDef> EyeColor </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.eyeColor}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="skinColor">
+      <mat-header-cell *matHeaderCellDef> Skin_Color </mat-header-cell>
+      <mat-cell *matCellDef="let element"> 
+        {{element.skinColor}} 
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+</div>

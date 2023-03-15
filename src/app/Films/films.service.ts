@@ -8,13 +8,10 @@ import { FILMS_LIST } from '../graphql/graphql.queries';
 export class FilmsService {
 
   constructor(private apollo: Apollo) { }
-
   filmsList() {
-    this.apollo.query({
+  return  this.apollo.query({
       query: FILMS_LIST,
       fetchPolicy: 'network-only',
-    }).subscribe((data)=> {
-      console.log(data);
     })
   }
 }
